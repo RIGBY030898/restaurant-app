@@ -29,4 +29,8 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     // add SDKs for desired Firebase products
     // https://firebase.google.com/docs/android/setup#available-libraries
+    implementation 'com.google.firebase:firebase-core:17.4.2'
+    //noinspection GradleCompatible
+    implementation 'com.android.support:design:27.1.1'
+    implementation 'com.google.firebase:firebase-database:19.3.0'
 }
