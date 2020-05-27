@@ -3,6 +3,10 @@ package com.restaurant.app;
 import android.app.Application;
 import android.content.SharedPreferences;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.restaurant.app.model.Device;
+
 import java.util.UUID;
 
 public class MyId extends Application {
@@ -22,7 +26,17 @@ public class MyId extends Application {
 
     private void createMyId(SharedPreferences preferences) {
         SharedPreferences.Editor editor = preferences.edit();
-        editor.putString("MyId", UUID.randomUUID().toString().trim());
+        String myId = UUID.randomUUID().toString();
+        editor.putString("MyId", myId);
         editor.apply();
+        registerDevice(myId);
+    }
+
+    private void registerDevice(String id) {
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+        Device device = new Device();
+        device.setUuid(id);
+        device.setTable(0);
+        databaseReference.child("Devices").child(device.getUuid()).setValue(device);
     }
 }
