@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import logo from './logo.svg';
 import './App.css';
 import {firebaseDatabaseReference as database} from './config'
+import { ImageUpload } from './ImageUpload';
 
 class App extends Component {
 
@@ -12,7 +13,7 @@ class App extends Component {
     }
   }
 
-  componentWillMount() {
+  componentDidMount() {
     database.child('Devices').on('value', snapshot => {
       const data = Object.values(snapshot.val())
       this.setState({
@@ -39,6 +40,7 @@ class App extends Component {
             react
           </a>
         </header>
+        <ImageUpload reference="Carousel" />
       </div>
     );
   }
