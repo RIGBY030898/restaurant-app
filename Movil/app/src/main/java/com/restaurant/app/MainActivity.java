@@ -12,15 +12,18 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.restaurant.app.model.Consumer;
 import com.restaurant.app.model.Device;
+import com.restaurant.app.model.Image;
+import com.restaurant.app.service.DeviceService;
+import com.restaurant.app.service.ImageService;
+import com.restaurant.app.service.UserService;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity {
@@ -28,20 +31,20 @@ public class MainActivity extends AppCompatActivity {
     private String myUUID;
     private TextView table;
 
-    Button start;
+    UserService userService;
+    DeviceService deviceService;
+    ImageService imageService;
 
-    FirebaseDatabase firebaseDatabase;
-    DatabaseReference databaseReference;
+    Button start;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        FirebaseApp.initializeApp(this);
-
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReference();
+        userService = UserService.getInstance();
+        deviceService = DeviceService.getInstance();
+        imageService = ImageService.getInstance();
 
         SharedPreferences sharedPreferences = getSharedPreferences("Register", MODE_PRIVATE);
 
@@ -51,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
 
         start = findViewById(R.id.start);
 
-        databaseReference.child("Devices").child(myUUID).addValueEventListener(new ValueEventListener() {
+        deviceService.getDevicesById(myUUID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
@@ -66,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
                             Device device = new Device();
                             device.setUuid(myUUID);
                             device.setTable(0);
-                            databaseReference.child("Devices").child(myUUID).setValue(device);
+                            deviceService.saveDevices(device);
                         }
                     });
                     alertDialog.setNegativeButton("Salir", new DialogInterface.OnClickListener() {
@@ -77,6 +80,29 @@ public class MainActivity extends AppCompatActivity {
                     });
                     alertDialog.create();
                     alertDialog.show();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
+
+        imageService.getImagesCarousel().addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()) {
+                    ArrayList<String> l = new ArrayList<>();
+                    for(DataSnapshot childSnapshot: dataSnapshot.getChildren()) {
+                        Image img = childSnapshot.getValue(Image.class);
+                        l.add(img.getName() + ": " + img.getUrl());
+                    }
+                    Iterator<String> iterator = l.iterator();
+                    while (iterator.hasNext()) {
+                        System.out.println(iterator.next());
+                    }
+                } else {
+                    Toast.makeText(MainActivity.this, "No existe ninguna imagen en carrusel", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -118,7 +144,7 @@ public class MainActivity extends AppCompatActivity {
             consumer.setUUID(UUID.randomUUID().toString());
             consumer.setName(user);
             consumer.setTable(viewTable);
-            databaseReference.child("Users").child("Consumers").child(consumer.getUUID()).setValue(consumer);
+            userService.saveUserConsumer(consumer);
         }
         return  register;
     }
