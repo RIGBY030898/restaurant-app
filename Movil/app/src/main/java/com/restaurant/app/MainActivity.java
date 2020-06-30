@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
+import android.app.slice.SliceItem;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -25,6 +26,9 @@ import com.restaurant.app.service.UserService;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.UUID;
+
+import ahmed.easyslider.EasySlider;
+import ahmed.easyslider.SliderItem;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -92,15 +96,19 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()) {
-                    ArrayList<String> l = new ArrayList<>();
+                    EasySlider slider = findViewById(R.id.sliderId);
+                    //ArrayList<String> l = new ArrayList<>();
+                    ArrayList<SliderItem> imagenes  = new ArrayList<>();
                     for(DataSnapshot childSnapshot: dataSnapshot.getChildren()) {
                         Image img = childSnapshot.getValue(Image.class);
-                        l.add(img.getName() + ": " + img.getUrl());
+                        //l.add(img.getName() + ": " + img.getUrl());
+                        imagenes.add(new SliderItem(img.getName(),img.getUrl()));
                     }
-                    Iterator<String> iterator = l.iterator();
+                    slider.setPages(imagenes);
+                    /**Iterator<String> iterator = l.iterator();
                     while (iterator.hasNext()) {
                         System.out.println(iterator.next());
-                    }
+                    }**/
                 } else {
                     Toast.makeText(MainActivity.this, "No existe ninguna imagen en carrusel", Toast.LENGTH_SHORT).show();
                 }
