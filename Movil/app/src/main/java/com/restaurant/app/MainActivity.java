@@ -97,18 +97,12 @@ public class MainActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()) {
                     EasySlider slider = findViewById(R.id.sliderId);
-                    //ArrayList<String> l = new ArrayList<>();
                     ArrayList<SliderItem> imagenes  = new ArrayList<>();
                     for(DataSnapshot childSnapshot: dataSnapshot.getChildren()) {
                         Image img = childSnapshot.getValue(Image.class);
-                        //l.add(img.getName() + ": " + img.getUrl());
                         imagenes.add(new SliderItem(img.getName(),img.getUrl()));
                     }
                     slider.setPages(imagenes);
-                    /**Iterator<String> iterator = l.iterator();
-                    while (iterator.hasNext()) {
-                        System.out.println(iterator.next());
-                    }**/
                 } else {
                     Toast.makeText(MainActivity.this, "No existe ninguna imagen en carrusel", Toast.LENGTH_SHORT).show();
                 }
