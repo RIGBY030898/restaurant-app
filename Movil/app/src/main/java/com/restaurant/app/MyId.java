@@ -6,6 +6,8 @@ import android.content.SharedPreferences;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.restaurant.app.model.Device;
+import com.restaurant.app.repository.FirebaseRepository;
+import com.restaurant.app.service.DeviceService;
 
 import java.util.UUID;
 
@@ -37,6 +39,8 @@ public class MyId extends Application {
         Device device = new Device();
         device.setUuid(id);
         device.setTable(0);
-        databaseReference.child("Devices").child(device.getUuid()).setValue(device);
+        System.out.println("Registrando dispositivo...");
+        DeviceService.getInstance().saveDevices(device);
+        //databaseReference.child("Devices").child(device.getUuid()).setValue(device);
     }
 }
