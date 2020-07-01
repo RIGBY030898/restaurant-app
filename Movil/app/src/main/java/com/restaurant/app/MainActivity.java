@@ -4,18 +4,20 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
-import android.app.slice.SliceItem;
+
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
+
 import com.restaurant.app.model.Consumer;
 import com.restaurant.app.model.Device;
 import com.restaurant.app.model.Image;
@@ -23,8 +25,9 @@ import com.restaurant.app.service.DeviceService;
 import com.restaurant.app.service.ImageService;
 import com.restaurant.app.service.UserService;
 
+
 import java.util.ArrayList;
-import java.util.Iterator;
+
 import java.util.UUID;
 
 import ahmed.easyslider.EasySlider;
@@ -35,11 +38,13 @@ public class MainActivity extends AppCompatActivity {
     private String myUUID;
     private TextView table;
 
+    EditText nombre;
+    Button start;
     UserService userService;
     DeviceService deviceService;
     ImageService imageService;
 
-    Button start;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +62,16 @@ public class MainActivity extends AppCompatActivity {
         table = findViewById(R.id.table);
 
         start = findViewById(R.id.start);
-
+        start.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                boolean register = registerUser();
+                if (register) {
+                    Toast.makeText(MainActivity.this, " registrado", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        nombre = findViewById(R.id.editTextNombre);
         deviceService.getDevicesById(myUUID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -95,10 +109,12 @@ public class MainActivity extends AppCompatActivity {
         imageService.getImagesCarousel().addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
                 if(dataSnapshot.exists()) {
                     EasySlider slider = findViewById(R.id.sliderId);
                     ArrayList<SliderItem> imagenes  = new ArrayList<>();
                     for(DataSnapshot childSnapshot: dataSnapshot.getChildren()) {
+
                         Image img = childSnapshot.getValue(Image.class);
                         imagenes.add(new SliderItem(img.getName(),img.getUrl()));
                     }
@@ -112,42 +128,28 @@ public class MainActivity extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
-        });
-    }
-
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.start:
-                String user = "Test";
-                boolean register = registerUser(user);
-                if(register) {
-                    Toast.makeText(this, user + " registrado", Toast.LENGTH_SHORT).show();
-                }
-                break;
-            default:
-                break;
+        });}
+        public boolean registerUser () {
+            boolean register = true;
+            int viewTable = Integer.parseInt(table.getText().toString().trim());
+            String user = nombre.getText().toString();
+            if (viewTable == 0) {
+                register = false;
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+                alertDialog.setTitle("Advertencia");
+                alertDialog.setMessage("El dispositivo no está registrado a una mesa");
+                alertDialog.setPositiveButton("OK", null);
+                alertDialog.create();
+                alertDialog.show();
+            } else {
+                Consumer consumer = new Consumer();
+                consumer.setUUID(UUID.randomUUID().toString());
+                consumer.setName(user);
+                consumer.setTable(viewTable);
+                userService.saveUserConsumer(consumer);
+            }
+            return register;
         }
     }
 
-    private boolean registerUser(String user) {
-        boolean register = true;
-        int viewTable = Integer.parseInt(table.getText().toString().trim());
 
-        if (viewTable == 0) {
-            register = false;
-            AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-            alertDialog.setTitle("Advertencia");
-            alertDialog.setMessage("El dispositivo no está registrado a una mesa");
-            alertDialog.setPositiveButton("OK", null);
-            alertDialog.create();
-            alertDialog.show();
-        } else {
-            Consumer consumer = new Consumer();
-            consumer.setUUID(UUID.randomUUID().toString());
-            consumer.setName(user);
-            consumer.setTable(viewTable);
-            userService.saveUserConsumer(consumer);
-        }
-        return  register;
-    }
-}
