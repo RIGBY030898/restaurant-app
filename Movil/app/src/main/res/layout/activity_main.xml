@@ -1,28 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    android:background="@color/colorPrimaryDark">
+    android:background="@android:color/holo_red_light"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
 
     <Button
         android:id="@+id/start"
         android:layout_width="100sp"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
+        android:layout_marginBottom="73dp"
+        android:background="@drawable/boton_redondeado"
+        android:onClick="onClick"
         android:text="Iniciar"
-        android:background="@android:color/white"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="20sp"
-        android:onClick="onClick"/>
+        android:textColor="@android:color/holo_red_light"
+
+        android:textSize="20sp" />
 
     <TextView
         android:id="@+id/table"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="invisible"/>
+        android:visibility="invisible" />
+
+    <EditText
+        android:id="@+id/editTextNombre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="62dp"
+        android:layout_marginTop="342dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="Ingrese su nombre"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        android:textStyle="italic" />
+
+    <CheckBox
+        android:id="@+id/checkBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="64dp"
+        android:layout_marginBottom="151dp"
+        android:text="Para llevar"
+        android:textColor="#FFFFFF" />
 
 </RelativeLayout>

@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
     private String myUUID;
     private TextView table;
-
+    EditText nombre;
     Button start;
 
     FirebaseDatabase firebaseDatabase;
@@ -50,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         table = findViewById(R.id.table);
 
         start = findViewById(R.id.start);
-
+        nombre = findViewById(R.id.editTextNombre);
         databaseReference.child("Devices").child(myUUID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -88,12 +89,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClick(View view) {
+        String nom = nombre.getText().toString();
         switch (view.getId()) {
             case R.id.start:
-                String user = "Test";
-                boolean register = registerUser(user);
-                if(register) {
-                    Toast.makeText(this, user + " registrado", Toast.LENGTH_SHORT).show();
+                if (nom.equals("")){
+                    nombre.setError("coloque un nombre");
+                }else{
+                    String user = "Test";
+                    boolean register = registerUser(user);
+                    if(register) {
+                        Toast.makeText(this, user + " registrado", Toast.LENGTH_SHORT).show();
+                        limpiarNom();
+                    }
                 }
                 break;
             default:
@@ -121,5 +128,8 @@ public class MainActivity extends AppCompatActivity {
             databaseReference.child("Users").child("Consumers").child(consumer.getUUID()).setValue(consumer);
         }
         return  register;
+    }
+    private void limpiarNom(){
+        nombre.setText("");
     }
 }
