@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
+
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -16,7 +17,7 @@ import android.widget.Toast;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.database.core.view.Event;
+
 import com.restaurant.app.model.Consumer;
 import com.restaurant.app.model.Device;
 import com.restaurant.app.model.Image;
@@ -24,11 +25,13 @@ import com.restaurant.app.service.DeviceService;
 import com.restaurant.app.service.ImageService;
 import com.restaurant.app.service.UserService;
 
-import java.time.ZoneOffset;
+
 import java.util.ArrayList;
-import java.util.EventListener;
-import java.util.Iterator;
+
 import java.util.UUID;
+
+import ahmed.easyslider.EasySlider;
+import ahmed.easyslider.SliderItem;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -106,16 +109,16 @@ public class MainActivity extends AppCompatActivity {
         imageService.getImagesCarousel().addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    ArrayList<String> l = new ArrayList<>();
-                    for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
+
+                if(dataSnapshot.exists()) {
+                    EasySlider slider = findViewById(R.id.sliderId);
+                    ArrayList<SliderItem> imagenes  = new ArrayList<>();
+                    for(DataSnapshot childSnapshot: dataSnapshot.getChildren()) {
+
                         Image img = childSnapshot.getValue(Image.class);
-                        l.add(img.getName() + ": " + img.getUrl());
+                        imagenes.add(new SliderItem(img.getName(),img.getUrl()));
                     }
-                    Iterator<String> iterator = l.iterator();
-                    while (iterator.hasNext()) {
-                        System.out.println(iterator.next());
-                    }
+                    slider.setPages(imagenes);
                 } else {
                     Toast.makeText(MainActivity.this, "No existe ninguna imagen en carrusel", Toast.LENGTH_SHORT).show();
                 }

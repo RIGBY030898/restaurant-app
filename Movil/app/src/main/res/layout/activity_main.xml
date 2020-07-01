@@ -54,4 +54,9 @@
         android:text="Para llevar"
         android:textColor="#FFFFFF" />
 
+    <ahmed.easyslider.EasySlider
+        android:layout_width="match_parent"
+        android:layout_height="90pt"
+        android:id="@+id/sliderId"/>
+
 </RelativeLayout>
