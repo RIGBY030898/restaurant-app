@@ -1,5 +1,6 @@
 package com.restaurant.app;
 
+import android.content.Intent;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -67,7 +68,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 boolean register = registerUser();
                 if (register) {
-                    Toast.makeText(MainActivity.this, " registrado", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(MainActivity.this, MenuActivity.class);
+                    startActivity(intent);
                 }
             }
         });
