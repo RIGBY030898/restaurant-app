@@ -15,7 +15,6 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="73dp"
         android:background="@drawable/boton_redondeado"
-        android:onClick="onClick"
         android:text="Iniciar"
         android:textColor="@android:color/holo_red_light"
 
