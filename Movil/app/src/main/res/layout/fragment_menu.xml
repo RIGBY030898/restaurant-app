@@ -1,100 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.menu.MenuFragment">
 
-    <ListView
-        android:id="@+id/list_products"
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tab_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:divider="@null"
-        android:dividerHeight="0dp"/>
+        app:tabIndicatorColor="@color/colorAccent"
+        tools:ignore="MissingConstraints">
 
-    <!--com.google.android.material.card.MaterialCardView
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tab_item_food"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tab_layout_product_food"
+            android:icon="@drawable/ic_foods" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tab_item_drink"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tab_layout_product_drink"
+            android:icon="@drawable/ic_drinks" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tab_item_dessert"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tab_layout_product_dessert"
+            android:icon="@drawable/ic_desserts" />
+    </com.google.android.material.tabs.TabLayout>
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/view_pager"
         android:layout_width="match_parent"
-        android:layout_height="256dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginRight="16dp"
-        app:cardCornerRadius="20dp"
-        app:cardElevation="40dp" >
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tab_layout" />
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:elevation="40dp">
-
-            <ViewSwitcher
-                android:id="@+id/view_switcher"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/colorPrimary"
-                android:inAnimation="@anim/bottom_up"
-                android:outAnimation="@anim/nav_default_exit_anim">
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/background_splash"
-                    android:scaleType="centerCrop" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Detalle del plato"
-                        android:textSize="16sp"
-                        android:textColor="@android:color/white"/>
-
-                </LinearLayout>
-
-            </ViewSwitcher>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_margin="5dp"
-                android:text="Material Card"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                android:textColor="@android:color/white"/>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentRight="true">
-
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/info"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="@android:color/holo_blue_bright"
-                    android:layout_marginRight="16dp"
-                    android:layout_marginBottom="16dp"
-                    app:srcCompat="@drawable/ic_info"/>
-
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/buy_product"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="@android:color/holo_orange_light"
-                    android:layout_marginRight="16dp"
-                    android:layout_marginBottom="16dp"
-                    app:srcCompat="@drawable/ic_shopping_cart"/>
-
-            </LinearLayout>
-        </RelativeLayout>
-
-    </com.google.android.material.card.MaterialCardView-->
-
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

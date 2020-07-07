@@ -6,6 +6,8 @@
     <color name="colorPrimaryDark">@android:color/holo_red_dark</color>
     <color name="colorAccent">#D81B60</color>
     <color name="btColor">#ffffff</color>
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorDivider">#ECECEC</color>
 
     <color name="shoppingCart">@android:color/holo_orange_light</color>
     <color name="info">@android:color/holo_blue_bright</color>

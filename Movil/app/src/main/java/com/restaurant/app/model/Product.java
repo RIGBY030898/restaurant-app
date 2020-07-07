@@ -8,15 +8,17 @@ public class Product {
     private double price;
     private String details;
     private String image;
+    private int count;
 
     public Product() {
     }
 
-    public Product(String name, double price, String details, String image) {
+    public Product(String name, double price, String details, String image, int count) {
         this.name = name;
         this.price = price;
         this.details = details;
         this.image = image;
+        this.count = count;
     }
 
     public String getName() {
@@ -49,6 +51,14 @@ public class Product {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
     }
 
     @Override
