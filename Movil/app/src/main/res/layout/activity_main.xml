@@ -1,24 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@android:color/holo_red_light"
     android:orientation="vertical"
     tools:context=".MainActivity">
-
-    <Button
-        android:id="@+id/start"
-        android:layout_width="100sp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="73dp"
-        android:background="@drawable/boton_redondeado"
-        android:text="Iniciar"
-        android:textColor="@android:color/holo_red_light"
-
-        android:textSize="20sp" />
 
     <TextView
         android:id="@+id/table"
@@ -26,36 +14,76 @@
         android:layout_height="wrap_content"
         android:visibility="invisible" />
 
-    <EditText
-        android:id="@+id/editTextNombre"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="62dp"
-        android:layout_marginTop="342dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:hint="Ingrese su nombre"
-        android:textColor="#FFFFFF"
-        android:textSize="24sp"
-        android:textStyle="italic" />
-
-    <CheckBox
-        android:id="@+id/checkBox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="64dp"
-        android:layout_marginBottom="151dp"
-        android:text="Para llevar"
-        android:textColor="#FFFFFF" />
-
-    <ahmed.easyslider.EasySlider
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="90pt"
-        android:id="@+id/sliderId"/>
+        android:layout_height="256dp"
+        android:padding="16dp">
 
-</RelativeLayout>
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:cardCornerRadius="16dp"
+            android:backgroundTint="@android:color/secondary_text_light_nodisable" >
+
+            <ahmed.easyslider.EasySlider
+                android:id="@+id/sliderId"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <ProgressBar
+                android:id="@+id/progress_bar_carousel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"/>
+
+        </com.google.android.material.card.MaterialCardView>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:padding="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <CheckBox
+            android:id="@+id/checkBox"
+            android:theme="@style/FormTheme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Para llevar"
+            android:padding="16dp"
+            android:textColor="#FFFFFF"
+            android:textColorHint="@color/colorWhite"
+            android:layout_centerVertical="true" />
+
+        <EditText
+            android:id="@+id/editTextNombre"
+            android:theme="@style/FormTheme"
+            android:layout_above="@id/checkBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:hint="Ingrese su nombre"
+            android:padding="16dp"
+            android:textSize="20sp" />
+
+        <LinearLayout
+            android:layout_below="@id/checkBox"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/start"
+                android:layout_below="@id/checkBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorWhite"
+                android:text="Iniciar"
+                android:textColor="@color/colorPrimary"
+                android:textSize="16sp"
+                app:cornerRadius="16sp" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+</LinearLayout>

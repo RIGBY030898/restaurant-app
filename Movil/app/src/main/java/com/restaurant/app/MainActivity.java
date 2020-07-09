@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,8 +46,6 @@ public class MainActivity extends AppCompatActivity {
     DeviceService deviceService;
     ImageService imageService;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
         myUUID = sharedPreferences.getString("MyId", "No Id");
 
         table = findViewById(R.id.table);
+        final ProgressBar progressBar = findViewById(R.id.progress_bar_carousel);
 
         start = findViewById(R.id.start);
         start.setOnClickListener(new View.OnClickListener() {
@@ -121,6 +121,7 @@ public class MainActivity extends AppCompatActivity {
                         imagenes.add(new SliderItem(img.getName(),img.getUrl()));
                     }
                     slider.setPages(imagenes);
+                    progressBar.setVisibility(View.INVISIBLE);
                 } else {
                     Toast.makeText(MainActivity.this, "No existe ninguna imagen en carrusel", Toast.LENGTH_SHORT).show();
                 }
