@@ -2,20 +2,12 @@ package com.restaurant.app.model;
 
 import java.util.Objects;
 
-public class Consumer {
+public class Order {
     private String UUID;
     private String name;
     private int table;
 
-    public Consumer() {
-    }
-
-    public String getUUID() {
-        return UUID;
-    }
-
-    public void setUUID(String UUID) {
-        this.UUID = UUID;
+    public Order() {
     }
 
     public String getName() {
@@ -26,6 +18,14 @@ public class Consumer {
         this.name = name;
     }
 
+    public String getUUID() {
+        return UUID;
+    }
+
+    public void setUUID(String UUID) {
+        this.UUID = UUID;
+    }
+
     public int getTable() {
         return table;
     }
@@ -33,7 +33,6 @@ public class Consumer {
     public void setTable(int table) {
         this.table = table;
     }
-
     @Override
     public String toString() {
         return "UUID: " + UUID +
@@ -45,8 +44,8 @@ public class Consumer {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Consumer consumer = (Consumer) o;
-        return UUID.equals(consumer.UUID);
+        Order order = (Order) o;
+        return UUID.equals(order.UUID);
     }
 
     @Override
@@ -54,3 +53,4 @@ public class Consumer {
         return Objects.hash(UUID);
     }
 }
+
