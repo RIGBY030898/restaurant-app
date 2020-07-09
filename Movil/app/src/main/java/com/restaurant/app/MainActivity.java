@@ -19,12 +19,12 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
+import com.restaurant.app.model.Consumer;
 import com.restaurant.app.model.Device;
 import com.restaurant.app.model.Image;
-import com.restaurant.app.model.Order;
 import com.restaurant.app.service.DeviceService;
 import com.restaurant.app.service.ImageService;
-import com.restaurant.app.service.OrderService;
+import com.restaurant.app.service.UserService;
 
 
 import java.util.ArrayList;
@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
     EditText nombre;
     Button start;
-    OrderService orderService;
+    UserService userService;
     DeviceService deviceService;
     ImageService imageService;
 
@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        orderService = OrderService.getInstance();
+        userService = UserService.getInstance();
         deviceService = DeviceService.getInstance();
         imageService = ImageService.getInstance();
 
@@ -144,11 +144,11 @@ public class MainActivity extends AppCompatActivity {
                 alertDialog.create();
                 alertDialog.show();
             } else {
-                Order order = new Order();
-                order.setUUID(UUID.randomUUID().toString());
-                order.setName(user);
-                order.setTable(viewTable);
-                orderService.saveOrder(order);
+                Consumer consumer = new Consumer();
+                consumer.setUUID(UUID.randomUUID().toString());
+                consumer.setName(user);
+                consumer.setTable(viewTable);
+                userService.saveUserConsumer(consumer);
             }
             return register;
         }
