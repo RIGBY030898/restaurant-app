@@ -11,6 +11,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -41,12 +42,17 @@ public class MainActivity extends AppCompatActivity {
 
     private String myUUID;
     private TextView table;
+    private TextView out;
+    private TextView uuid;
+    private  String[] todos_los_datos ;
 
     EditText nombre;
     Button start;
+    CheckBox para_llevar;
     OrderService userService;
     DeviceService deviceService;
     ImageService imageService;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +68,10 @@ public class MainActivity extends AppCompatActivity {
         myUUID = sharedPreferences.getString("MyId", "No Id");
 
         table = findViewById(R.id.table);
+        out = findViewById(R.id.ck_llevar);
+        uuid = findViewById(R.id.uuid);
+        para_llevar = (CheckBox) findViewById(R.id.checkBox);
+
         final ProgressBar progressBar = findViewById(R.id.progress_bar_carousel);
 
         start = findViewById(R.id.start);
@@ -71,6 +81,14 @@ public class MainActivity extends AppCompatActivity {
                 boolean register = registerUser();
                 if (register) {
                     Intent intent = new Intent(MainActivity.this, MenuActivity.class);
+
+                    todos_los_datos = new String[3];
+                    todos_los_datos[0] = uuid.getText().toString() ;
+                    todos_los_datos[1] = nombre.getText().toString();
+                    todos_los_datos[2] = table.getText().toString();
+
+                    intent.putExtra("datos",todos_los_datos);
+                    intent.putExtra("ck_box",para_llevar.isChecked()) ;
                     startActivity(intent);
                 }
             }
@@ -149,9 +167,11 @@ public class MainActivity extends AppCompatActivity {
             } else {
                 Order consumer = new Order();
                 consumer.setUUID(UUID.randomUUID().toString());
+                uuid.setText(consumer.getUUID());
                 consumer.setName(user);
                 consumer.setTable(viewTable);
                 userService.saveOrder(consumer);
+
             }
             return register;
         }
