@@ -1,0 +1,11 @@
+#alert-error {
+    position: absolute;
+    margin-top: 8vh;
+    left: calc(100% / 2);
+    transform: translate(-50%);
+}
+
+#container-login {
+    display: flex;
+    height: 100vh;
+}

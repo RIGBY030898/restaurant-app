@@ -1,0 +1,6 @@
+#container-register {
+    position: absolute;
+    top: calc(64%);
+    left: calc(100% / 2);
+    transform: translate(-50%, -50%);
+}
