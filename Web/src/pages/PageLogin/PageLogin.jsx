@@ -1,8 +1,6 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import { Form, Button, Alert, Container, Row, Col } from 'react-bootstrap'
 import { getUserRestuarant } from '../../service'
-
-import { Redirect } from 'react-router-dom'
 
 import './pageLogin.css'
 
@@ -118,9 +116,81 @@ class PageLogin extends Component {
             isInvalidPassword,
         } = this.state
 
-        const { logIn } = this.props
-
         return (
+            <div id='container-login' className='bg-danger'>
+                <Alert
+                    id='alert-error'
+                    variant='danger'
+                    onClose={() => this.setState({ errorLog: false })}
+                    show={errorLog}
+                    dismissible
+                >
+                    <Alert.Heading>Oh! Tuviste algún error</Alert.Heading>
+                    <p>
+                        El nombre de usuario o la contraseña son incorrectos, intente de
+                        nuevo.
+                    </p>
+                </Alert>
+                <Container className='align-self-center'>
+                    <Row>
+                        <Col xl={4}></Col>
+                        <Col xl={4} className='bg-light pb-5 pl-5 pr-5 rounded'>
+                            <center>
+                                <h3 className='text-danger p-3'>RestaurantApp</h3>
+                            </center>
+                            <Form noValidate onSubmit={this.submit}>
+                                <Form.Group controlId='formUser'>
+                                    <Form.Label>Nombre de usuario</Form.Label>
+                                    <Form.Control
+                                        type='text'
+                                        placeholder='Ingrese su nombre de usuario'
+                                        onChange={this.handleChangeUser}
+                                        value={userLog}
+                                        autoComplete='username|nickname'
+                                        isInvalid={isInvalidUser}
+                                        onFocus={this.validateUser}
+                                        required
+                                    />
+                                    <Form.Control.Feedback type='invalid'>
+                                        El campo no debe estar vacío
+                                    </Form.Control.Feedback>
+                                </Form.Group>
+
+                                <Form.Group controlId='formPassword'>
+                                    <Form.Label>Contraseña</Form.Label>
+                                    <Form.Control
+                                        type='password'
+                                        placeholder='Ingrese su contraseña'
+                                        onChange={this.handleChangePassword}
+                                        value={passwordLog}
+                                        autoComplete='new-password|current-password'
+                                        isInvalid={isInvalidPassword}
+                                        onFocus={this.validatePassword}
+                                        required
+                                    />
+                                    <Form.Control.Feedback type='invalid'>
+                                        El campo no debe estar vacío
+                                    </Form.Control.Feedback>
+                                </Form.Group>
+                                <Form.Group controlId='formRemember'>
+                                    <Form.Check
+                                        type='checkbox'
+                                        label='Recordarme'
+                                        checked={rememberLog}
+                                        onChange={this.handleChangeRemember}
+                                    />
+                                </Form.Group>
+                                <Button type='submit' variant='success' block>
+                                    Iniciar Sesión
+                                </Button>
+                            </Form>
+                        </Col>
+                    </Row>
+                </Container>
+            </div>
+        )
+
+        /*return (
             <Fragment>
                 {logIn ? (
                     <Redirect to='/home' />
@@ -198,7 +268,7 @@ class PageLogin extends Component {
                     </div>
                 )}
             </Fragment>
-        )
+        )*/
     }
 }
 

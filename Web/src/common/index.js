@@ -7,6 +7,8 @@ import {
     nameDishe,
     nameOrder,
     nameRegister,
+    nameMain,
+    nameHome,
     urlDevice,
     urlDishe,
     urlOrder,
@@ -33,4 +35,6 @@ export {
     sizeString,
     blank,
     jobs,
+    nameHome,
+    nameMain,
 }

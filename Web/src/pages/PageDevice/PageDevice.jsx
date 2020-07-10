@@ -1,41 +1,13 @@
-import React, { Component, Fragment } from 'react'
-
-import { authentification, nameDevice } from '../../common'
-import { Redirect } from 'react-router-dom'
+import React, { Component } from 'react'
 
 class PageDevice extends Component {
     constructor(props) {
         super(props)
-        this.state = {
-            show: true,
-        }
-    }
-
-    componentDidMount() {
-        const { type } = this.props
-        const auth = authentification(type, nameDevice)
-        if (!auth) {
-            this.setState({ show: false })
-        }
+        this.state = {}
     }
 
     render() {
-        const { logIn } = this.props
-        const { show } = this.state
-
-        if (logIn) {
-            return (
-                <Fragment>
-                    {show ? (
-                        <Fragment>Bienvenido a Devices</Fragment>
-                    ) : (
-                        <Redirect to='/404' />
-                    )}
-                </Fragment>
-            )
-        } else {
-            return <Redirect to='/' />
-        }
+        return <p>Bienvenido a Devices</p>
     }
 }
 

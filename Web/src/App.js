@@ -1,6 +1,6 @@
 import React, { Fragment, Component } from 'react'
 import { history } from './service'
-import { Switch, Route, Router, Redirect } from 'react-router-dom'
+import { Switch, Route, Router } from 'react-router-dom'
 
 import {
     PageHome,
@@ -10,9 +10,23 @@ import {
     PageDishe,
     PageOrder,
     PageRegister,
+    Page,
 } from './pages'
 import { Header } from './components'
-import { urlDevice, urlDishe, urlOrder, urlRegister, urlMain, urlHome } from './common'
+import {
+    urlDevice,
+    urlDishe,
+    urlOrder,
+    urlRegister,
+    urlMain,
+    urlHome,
+    nameHome,
+    nameDevice,
+    nameDishe,
+    nameOrder,
+    nameRegister,
+    nameMain,
+} from './common'
 
 class App extends Component {
     constructor(props) {
@@ -72,58 +86,54 @@ class App extends Component {
                         <Fragment></Fragment>
                     )}
                     <Switch>
-                        <Route
+                        <Page
                             exact
                             path={urlMain}
-                            component={(props) => (
-                                <PageLogin
-                                    {...props}
-                                    setLogIn={this.logInUser}
-                                    logIn={logIn}
-                                />
-                            )}
+                            component={PageLogin}
+                            redirect={urlHome}
+                            nameAccess={nameMain}
+                            setLogIn={this.logInUser}
                         />
-                        <Route
+                        <Page
                             exact
                             path={urlHome}
-                            component={(props) => (
-                                <PageHome {...props} user={username} logIn={logIn} />
-                            )}
+                            component={PageHome}
+                            redirect={urlMain}
+                            nameAccess={nameHome}
                         />
-                        <Route
+                        <Page
                             exact
                             path={urlDevice}
-                            component={(props) => (
-                                <PageDevice {...props} logIn={logIn} type={type} />
-                            )}
+                            component={PageDevice}
+                            redirect={urlMain}
+                            nameAccess={nameDevice}
                         />
-                        <Route
+                        <Page
                             exact
                             path={urlDishe}
-                            component={(props) => (
-                                <PageDishe {...props} logIn={logIn} type={type} />
-                            )}
+                            component={PageDishe}
+                            redirect={urlMain}
+                            nameAccess={nameDishe}
                         />
-                        <Route
+                        <Page
                             exact
                             path={urlOrder}
-                            component={(props) => (
-                                <PageOrder {...props} logIn={logIn} type={type} />
-                            )}
+                            component={PageOrder}
+                            redirect={urlMain}
+                            nameAccess={nameOrder}
                         />
-                        <Route
+                        <Page
                             exact
                             path={urlRegister}
-                            component={(props) => (
-                                <PageRegister {...props} logIn={logIn} type={type} />
-                            )}
+                            component={PageRegister}
+                            redirect={urlMain}
+                            nameAccess={nameRegister}
                         />
                         <Route
                             exact
-                            path='/404'
+                            path='*'
                             component={(props) => <PageNotFound {...props} />}
                         />
-                        <Redirect to='/404' />
                     </Switch>
                 </Router>
             </Fragment>

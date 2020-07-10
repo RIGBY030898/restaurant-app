@@ -6,6 +6,8 @@ const urlDishe = '/dishes'
 const urlOrder = '/orders'
 const urlRegister = '/register'
 
+const nameMain = 'Login'
+const nameHome = 'Home'
 const nameDevice = 'Dispositivos'
 const nameDishe = 'Platos'
 const nameOrder = 'Pedidos'
@@ -66,8 +68,15 @@ const getAccess = (type) => {
     }
 }
 
-const authentification = (type, nameAccess) => {
-    const find = getAccess(type).find(({ name }) => name === nameAccess)
+const authentification = (nameAccess) => {
+    const localType = localStorage.getItem('type')
+    if (localType === null) {
+        return nameAccess === nameMain
+    }
+    if (nameAccess === nameHome) {
+        return true
+    }
+    const find = getAccess(localType).find(({ name }) => name === nameAccess)
     return find !== undefined
 }
 
@@ -78,6 +87,8 @@ export {
     nameDishe,
     nameOrder,
     nameRegister,
+    nameMain,
+    nameHome,
     urlDevice,
     urlDishe,
     urlOrder,

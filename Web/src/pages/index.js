@@ -1,3 +1,4 @@
+import Page from './Page'
 import { PageHome } from './PageHome'
 import { PageNotFound } from './PageNotFound'
 import { PageLogin } from './PageLogin'
@@ -7,6 +8,7 @@ import { PageOrder } from './PageOrder'
 import { PageRegister } from './PageRegister'
 
 export {
+    Page,
     PageHome,
     PageNotFound,
     PageLogin,
