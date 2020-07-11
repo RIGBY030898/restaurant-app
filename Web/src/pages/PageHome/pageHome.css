@@ -1,0 +1,9 @@
+#container-home {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+footer {
+    margin-top: 8rem;
+}

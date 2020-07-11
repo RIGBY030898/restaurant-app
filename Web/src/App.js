@@ -1,47 +1,144 @@
-import React, {Component} from 'react';
-import logo from './logo.svg';
-import './App.css';
-import {firebaseDatabaseReference as database} from './config'
+import React, { Fragment, Component } from 'react'
+import { history } from './service'
+import { Switch, Route, Router } from 'react-router-dom'
+
+import {
+    PageHome,
+    PageNotFound,
+    PageLogin,
+    PageDevice,
+    PageDishe,
+    PageOrder,
+    PageRegister,
+    Page,
+} from './pages'
+import { Header } from './components'
+import {
+    urlDevice,
+    urlDishe,
+    urlOrder,
+    urlRegister,
+    urlMain,
+    urlHome,
+    nameHome,
+    nameDevice,
+    nameDishe,
+    nameOrder,
+    nameRegister,
+    nameMain,
+} from './common'
 
 class App extends Component {
-
-  constructor(props) {
-    super(props)
-    this.state = {
-      devices: []
+    constructor(props) {
+        super(props)
+        this.state = {
+            logIn: false,
+            user: {},
+        }
     }
-  }
 
-  componentWillMount() {
-    database.child('Devices').on('value', snapshot => {
-      const data = Object.values(snapshot.val())
-      this.setState({
-        devices: data
-      })
-    })
-  }
+    componentDidMount() {
+        const localType = localStorage.getItem('type')
+        if (localType !== null) {
+            const localUser = localStorage.getItem('user')
+            this.setState({
+                logIn: true,
+                user: { username: localUser, type: localType },
+            })
+        }
+    }
 
-  render() {
-    const { devices } = this.state
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Existen {devices.length} dispositivos registrados en la BD.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            react
-          </a>
-        </header>
-      </div>
-    );
-  }
+    logInUser = (user) => {
+        const { type, username } = user
+        localStorage.setItem('user', username)
+        localStorage.setItem('type', type)
+        this.setState({
+            user: user,
+            logIn: true,
+        })
+    }
+
+    logOutUser = () => {
+        const localPassword = localStorage.getItem('password')
+        if (localPassword === null) {
+            localStorage.removeItem('user')
+        }
+        localStorage.removeItem('type')
+        history.push('/')
+        this.setState({
+            logIn: false,
+            user: {},
+        })
+    }
+
+    render() {
+        const {
+            logIn,
+            user: { username, type },
+        } = this.state
+
+        return (
+            <Fragment>
+                <Router history={history}>
+                    {logIn ? (
+                        <Header username={username} type={type} exit={this.logOutUser} />
+                    ) : (
+                        <Fragment></Fragment>
+                    )}
+                    <Switch>
+                        <Page
+                            exact
+                            path={urlMain}
+                            component={PageLogin}
+                            redirect={urlHome}
+                            nameAccess={nameMain}
+                            setLogIn={this.logInUser}
+                        />
+                        <Page
+                            exact
+                            path={urlHome}
+                            component={PageHome}
+                            redirect={urlMain}
+                            nameAccess={nameHome}
+                        />
+                        <Page
+                            exact
+                            path={urlDevice}
+                            component={PageDevice}
+                            redirect={urlMain}
+                            nameAccess={nameDevice}
+                        />
+                        <Page
+                            exact
+                            path={urlDishe}
+                            component={PageDishe}
+                            redirect={urlMain}
+                            nameAccess={nameDishe}
+                        />
+                        <Page
+                            exact
+                            path={urlOrder}
+                            component={PageOrder}
+                            redirect={urlMain}
+                            nameAccess={nameOrder}
+                        />
+                        <Page
+                            exact
+                            path={urlRegister}
+                            component={PageRegister}
+                            redirect={urlMain}
+                            nameAccess={nameRegister}
+                        />
+                        <Route
+                            exact
+                            path='*'
+                            component={(props) => <PageNotFound {...props} />}
+                        />
+                    </Switch>
+                </Router>
+            </Fragment>
+        )
+    }
 }
 
-export default App;
+export default App
