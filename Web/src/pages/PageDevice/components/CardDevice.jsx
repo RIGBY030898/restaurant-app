@@ -88,7 +88,8 @@ class CardDevice extends Component {
             <Card className={`m-4 ${color}`}>
                 <Card.Body>
                     <Card.Title className='text-center'>Dispositivo</Card.Title>
-                    <Card.Subtitle className='mb-2 text-muted text-center'>
+                    <Card.Subtitle className='mb-2'>
+                        <strong>Nombre:</strong>
                         <Form.Control
                             type='text'
                             value={name}

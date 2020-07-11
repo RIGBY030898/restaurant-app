@@ -25,7 +25,7 @@ class PageDevice extends Component {
         })
         getAllDevices().on('child_removed', (snapshot) => {
             const { uuid } = snapshot.val()
-            const devices = delete this.state.devices[uuid]
+            delete this.state.devices[uuid]
         })
     }
 
@@ -49,7 +49,9 @@ class PageDevice extends Component {
                 {show ? (
                     <Fragment>{this.showDevices()}</Fragment>
                 ) : (
-                    <Spinner id='container' animation='border' variant='danger' />
+                    <center>
+                        <Spinner className='m-5' animation='border' variant='danger' />
+                    </center>
                 )}
             </Container>
         )
