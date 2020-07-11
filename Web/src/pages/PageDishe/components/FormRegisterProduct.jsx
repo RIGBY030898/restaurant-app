@@ -48,11 +48,11 @@ class FormRegisterProduct extends Component {
     }
 
     handleChangePrice = ({ target: { value } }) => {
-        this.setState({ price: value })
+        this.setState({ price: parseFloat(value) })
     }
 
     handleChangeCount = ({ target: { value } }) => {
-        this.setState({ count: value })
+        this.setState({ count: parseInt(value) })
     }
 
     handleChangeType = ({ target: { value } }) => {
@@ -133,8 +133,8 @@ class FormRegisterProduct extends Component {
                         />
                     </Form.Group>
                 </Form.Row>
-                <Button variant='primary' type='submit'>
-                    Submit
+                <Button variant='success' type='submit'>
+                    Registrar
                 </Button>
             </Form>
         )
