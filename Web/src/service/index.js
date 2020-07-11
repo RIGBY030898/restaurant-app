@@ -5,6 +5,11 @@ import {
     registerUserRestaurant,
     referenceUser,
     referenceUserRestaurant,
+    referenceDevice,
+    databaseDevice,
+    getAllDevices,
+    updateDevice,
+    removeDevice,
 } from './firebase'
 
 export {
@@ -14,4 +19,9 @@ export {
     registerUserRestaurant,
     referenceUser,
     referenceUserRestaurant,
+    referenceDevice,
+    databaseDevice,
+    getAllDevices,
+    updateDevice,
+    removeDevice,
 }
