@@ -32,7 +32,7 @@ class CardDevice extends Component {
     }
 
     handleChangeTable = ({ target: { value } }) => {
-        this.setState({ table: value })
+        this.setState({ table: parseInt(value) })
     }
 
     setEdit = (e) => {

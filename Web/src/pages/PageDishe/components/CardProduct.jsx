@@ -27,12 +27,12 @@ class CardProduct extends Component {
     }
 
     handleChangePrice = ({ target: { value } }) => {
-        this.setState({ price: value })
+        this.setState({ price: parseFloat(value) })
     }
 
     handleChangeCount = ({ target: { value } }) => {
         this.setState({
-            count: value,
+            count: parseInt(value),
         })
     }
 

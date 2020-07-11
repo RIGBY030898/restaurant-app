@@ -27,7 +27,9 @@ class RegisterProduct extends Component {
                     <FormRegisterProduct />
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button onClick={onHide}>Close</Button>
+                    <Button onClick={onHide} variant='danger'>
+                        Cancelar
+                    </Button>
                 </Modal.Footer>
             </Modal>
         )
